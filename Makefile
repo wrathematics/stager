@@ -1,5 +1,5 @@
 MPICC = mpicc
-CFLAGS = -O2 -march=native -Wall -pedantic -Wextra
+CFLAGS = -std=c99 -O2 -march=native -Wall -pedantic -Wextra
 
 
 all: clean stager cleaner
