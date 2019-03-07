@@ -4,11 +4,14 @@ CFLAGS = -std=c99 -O2 -march=native -Wall -pedantic -Wextra
 
 all: clean stager cleaner
 
-stager:
-	$(MPICC) $(CFLAGS) src/stager.c -o stager
+%.o: %.c $(DEPS)
+	$(MPICC) -c -o $@ $< $(CFLAGS)
 
-cleaner:
-	$(MPICC) $(CFLAGS) src/cleaner.c -o cleaner
+stager: src/utils.o src/stager.o
+	$(MPICC) -o stager src/utils.o src/stager.o
+
+cleaner: src/utils.o src/cleaner.o
+	$(MPICC) -o cleaner src/utils.o src/cleaner.o
 
 clean:
-	rm -rf stager cleaner
+	rm -rf stager cleaner src/*.o

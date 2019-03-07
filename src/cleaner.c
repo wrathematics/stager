@@ -1,8 +1,6 @@
 #include "common.h"
-
-#define SHOW_RUNTIME 1
-
-#define UNUSED(x) (void)(x)
+#include "options.h"
+#include "utils.h"
 
 
 int main(int argc, char **argv)

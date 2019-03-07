@@ -1,9 +1,9 @@
 #include "common.h"
+#include "options.h"
+#include "utils.h"
+
 #include <string.h>
 
-#define SHOW_RUNTIME 1
-
-#define MAX(a,b) ((a)<(b)?(b):(a))
 
 #define TGZLEN 256
 char tgz[TGZLEN];
