@@ -1,5 +1,3 @@
-BSD 2-Clause License
-
 Copyright (c) 2019, Drew Schmidt
 All rights reserved.
 
