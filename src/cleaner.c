@@ -36,8 +36,6 @@ int main(int argc, char **argv)
     printf("Cleanup time: %.3f\n", t_end-t_start);
   }
   
-  MPI_Barrier(p.comm);
-  
   MPI_Finalize();
   return 0;
 }
