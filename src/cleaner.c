@@ -17,7 +17,7 @@ int main()
   {
     t_start = MPI_Wtime();
     
-    sprintf(cmd, "%s %s*", "rm -rf", OUTPATH);
+    sprintf(cmd, "rm -rf %s/*", OUTPATH);
     check = system(cmd);
   }
   

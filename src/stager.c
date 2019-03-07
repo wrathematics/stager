@@ -1,6 +1,12 @@
 #include "common.h"
+#include <string.h>
 
 #define SHOW_RUNTIME 1
+
+#define MAX(a,b) ((a)<(b)?(b):(a))
+
+#define TGZLEN 256
+char tgz[TGZLEN];
 
 
 int main(int argc, char **argv)
@@ -20,12 +26,18 @@ int main(int argc, char **argv)
   {
     t_start = MPI_Wtime();
     
-    sprintf(cmd, "%s %s %s", "cp", argv[1], OUTPATH);
+    FILE *p;
+    sprintf(cmd, "basename %s", argv[1]);
+    p = popen(cmd, "r");
+    fgets(tgz, TGZLEN, p);
+    tgz[MAX(0, strlen(tgz) - 1)] = '\0';
+    
+    sprintf(cmd, "cp %s %s", argv[1], OUTPATH);
     check = system(cmd);
     if (check == SYSTEM_ERR)
       goto wrapup;
     
-    sprintf(cmd, "%s %s%s", "tar -zxf", OUTPATH, argv[1]);
+    sprintf(cmd, "tar -zxf %s%s -C %s", OUTPATH, tgz, OUTPATH);
     check = system(cmd);
     if (check == SYSTEM_ERR)
       goto wrapup;
