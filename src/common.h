@@ -6,6 +6,7 @@
 
 
 #include <mpi.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -13,7 +14,9 @@
 #error "MPI_VERSION >= 3 required"
 #endif
 
-#define SYSTEM_ERR -1
+#define ERR_SYSTEM  -1
+#define ERR_FGETS   -2
+#define ERR_ARGS    -10
 
 #define CMDLEN 512
 char cmd[CMDLEN];
@@ -37,12 +40,18 @@ static inline void MPI_Comm_localrank(MPI_Comm comm, int *localrank)
 
 
 
-static inline void MPI_err(pinfo_t p, char *msg)
+static inline void MPI_throw_err(int errno, pinfo_t p, char *fmt, ...)
 {
   if (p.rank == 0)
-    fprintf(stderr, "ERROR: %s\n", msg);
+  {
+    va_list args;
+    
+    va_start(args, fmt);
+    vfprintf(stderr, fmt, args);
+    va_end(args);
+  }
   
-  exit(-1);
+  exit(errno);
 }
 
 
