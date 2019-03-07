@@ -17,9 +17,11 @@ void MPI_throw_err(int errno, pinfo_t p, char *fmt, ...)
   {
     va_list args;
     
+    fprintf(stderr, "ERROR: ");
     va_start(args, fmt);
     vfprintf(stderr, fmt, args);
     va_end(args);
+    fprintf(stderr, "\n");
   }
   
   exit(errno);
